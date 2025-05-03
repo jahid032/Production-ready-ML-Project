@@ -1,9 +1,13 @@
-from us_visa.logger import logging
-from us_visa.exception import USvisaException
-import sys
-logging.info("Welcome to custom logger file")
+from pymongo import MongoClient
+import os
+
+# If you used export, you can access it like this:
+mongo_url = os.getenv("MONGODB_URL")
 
 try:
-    a = 2/0
+    client = MongoClient(mongo_url)
+    # Test the connection by listing databases
+    print("Connected! Databases:")
+    print(client.list_database_names())
 except Exception as e:
-    raise USvisaException(e,sys)
+    print("Connection failed:", e)
